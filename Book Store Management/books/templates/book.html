@@ -1,0 +1,37 @@
+{% extends 'books/base.html' %}
+
+{% block head %}
+    <!-- Add any custom stylesheets or scripts here if needed -->
+{% endblock head %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h2 class="mb-4">Book List</h2>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Published Date</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for book in books %}
+              <tr>
+                  <td>{{ book.title }}</td>
+                  <td>{{ book.author }}</td> <!-- Changed to author instead of email -->
+                  <td>{{ book.description }}</td> <!-- Changed to description instead of password -->
+                  <td>{{ book.price }}</td>
+                  <td>{{ book.published_date }}</td>
+              </tr>
+              {% endfor %}  <!-- Correctly closing the for loop -->
+            </tbody>
+        </table>
+        <!-- Add a message if no books are available -->
+        {% if books|length == 0 %}
+          <p>No books available.</p>
+        {% endif %}
+    </div>
+{% endblock body %}

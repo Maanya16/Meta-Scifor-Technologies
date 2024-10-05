@@ -1,0 +1,73 @@
+{% extends 'books/base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        
+        }
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: auto;
+            max-width: 600px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+{% endblock head %}
+
+{% block body %}
+<div class="form-container">
+    <h2 class="mb-4">Delete Book</h2>
+    <form id="deleteForm" class="row g-3" method="post">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <label for="inputTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" name="title" id="inputTitle" required>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        
+    </form>
+</div>
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<!-- Custom JS for form confirmation -->
+<script>
+    document.getElementById('deleteForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this book?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If confirmed, submit the form
+                document.getElementById('deleteForm').submit();
+            }
+        });
+    });
+</script>
+{% endblock body %}

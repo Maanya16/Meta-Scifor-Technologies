@@ -1,0 +1,136 @@
+{% include 'books/base.html' %}
+
+{% block head %}
+    <style>
+        body {
+            background-color: #f8f9fa;
+
+        }
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: auto;
+            max-width: 600px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+{% endblock head %}
+
+{% block body %}
+<div class="form-container">
+    <h2 class="mb-4">Add Book</h2>
+    <form class="row g-3 needs-validation" id="bookForm" method="post"  action="{% url 'add' %}" novalidate>
+        {% csrf_token %}
+        <div class="col-md-12">
+            <label for="bookName" class="form-label">Book Name</label>
+            <input type="text" class="form-control" id="bookName" name="bookname" required>
+            <div class="invalid-feedback">Please provide a book name.</div>
+        </div>
+        <div class="col-md-12">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" name="author" required>
+            <div class="invalid-feedback">Please provide an author name.</div>
+        </div>
+        <div class="col-md-12">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <div class="col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" required>
+            <div class="invalid-feedback">Please provide a valid price.</div>
+        </div>
+        <div class="col-md-6">
+            <label for="publishedDate" class="form-label">Published Date</label>
+            <input type="date" class="form-control" id="publishedDate" name="publishedDate" required>
+            <div class="invalid-feedback">Please provide a valid published date.</div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit" id="submitBtn">Submit</button>
+        </div>
+    </form>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Custom JS for validation and SweetAlert -->
+ <script>
+(function () {
+    'use strict';
+
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                // Temporarily store form data before showing the alert
+                var formData = new FormData(form);
+                
+                // Show SweetAlert
+                Swal.fire({
+                    title: 'Book added successfully!',
+                    text: 'Do you want to add more books?',
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, add more!',
+                    cancelButtonText: 'No, go to homepage'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Reset form but do not submit again
+                        form.reset();
+                        form.classList.remove('was-validated');
+                    } else {
+                        // Redirect to another page
+                        window.location.href = "{% url 'Home' %}";  // Change to actual homepage URL
+                    }
+                });
+
+                // Submit the form data
+                // Note: This submission happens right after the SweetAlert is shown,
+                // ensuring that data is submitted first before the form is reset.
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", form.action, true);
+                xhr.setRequestHeader("X-CSRFToken", formData.get('csrfmiddlewaretoken'));
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // Form submission was successful, proceed with SweetAlert
+                        console.log("Form submitted successfully.");
+                    } else {
+                        // Handle error
+                        console.error("Form submission failed.");
+                    }
+                };
+                xhr.send(formData);
+
+                event.preventDefault(); // Prevent default browser form submission
+            }
+
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+</script>
+
+{% endblock body %}

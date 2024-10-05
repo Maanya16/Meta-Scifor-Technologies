@@ -1,0 +1,26 @@
+{% include 'books/base.html' %}
+{% load static %}
+{% block body %}
+<style>
+  body {
+    background-image: url("{% static 'D:\bookstoreproject\books\static\download.jpeg' %}");
+    background-size: cover; /* This makes the background image cover the entire body */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  .welcome-message {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 85px;
+    color: hsl(324, 92%, 40%); /* Change this color to match your design */
+  }
+</style>
+
+
+<!-- Welcome message -->
+<div class="welcome-message">
+  Welcome to the Book Store Management System. How can I help you?
+</div>
+
+{% endblock %}
