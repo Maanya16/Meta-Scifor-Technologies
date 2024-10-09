@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border: 1px solid #e1e1e1;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 16px;
+        color: #6c757d;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    .content-section {
+        margin-bottom: 40px;
+    }
+
+    .container p:last-child {
+        margin-bottom: 0;
+    }
+</style>
+
+<div class="container">
+    <h1>Image to Text Converter - What Is This?</h1>
+    <p class="lead">Our online OCR tool is an advanced Image to Text converter, leveraging Optical Character Recognition (OCR) technology to extract text from images, scanned PDFs, and photos. Whether you're converting lecture notes, scanned books, or any text-based images, our service is here to help.</p>
+
+    <div class="content-section">
+        <h2>Searchable PDF</h2>
+        <p>Our OCR tool allows you to convert a scanned PDF into a searchable PDF, making it easier to locate information within documents. Libraries and government agencies often use this feature to digitize archives and make them searchable.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Education</h2>
+        <p>Students and teachers can use our service to convert scanned notes, textbooks, and lectures into text, improving exam preparation. The text format takes up less storage and is easier to organize compared to large scanned images.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Book Digitization</h2>
+        <p>Book digitization converts physical books and magazines into digital media. Publishers and organizations use image-to-text technology to digitize and distribute their content online. The resulting text-based format reduces file size and makes it easy to search and manipulate.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Data Mining</h2>
+        <p>Data mining involves discovering patterns in large datasets, and image-to-text conversion is the first step in structuring information for data mining processes.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Data Extraction</h2>
+        <p>Our OCR service can extract text from invoices, receipts, tables, and forms to help you create databases and spreadsheets effortlessly.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Quick Translation</h2>
+        <p>If you encounter content in a foreign language, simply upload an image of the text, convert it to digital text, and then translate it using your preferred translation tool.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Legislation and Compliance</h2>
+        <p>Legal documents, often scanned and stored as images, can be converted into editable and searchable text formats using our OCR service. This is useful for extracting key information from contracts, invoices, and other official documents.</p>
+    </div>
+</div>
+{% endblock %}
